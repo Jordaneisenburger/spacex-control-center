@@ -1,0 +1,18 @@
+.root {
+
+}
+
+
+.bodyWrapper {
+    display: flex;
+    height: 100vh;
+    justify-content: space-between;
+}
+
+.aside {
+    width: 25%;
+}
+
+.main {
+    width: calc((100% - 2rem) - 25%);
+}

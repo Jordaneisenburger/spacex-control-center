@@ -1,0 +1,53 @@
+.root {
+    flex-grow: 1;
+    display: flex;
+    width: 100%;
+}
+
+.name {
+    display: flex;
+    align-items: center;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    border-bottom: .0625rem solid var(--color__border);
+    padding-bottom: 1rem;
+    justify-content: space-between;
+}
+
+.success {
+    margin-right: .625rem;
+    background-color: var(--color__success);
+    width: .625rem;
+    height: .625rem;
+    border-radius: 50%;
+}
+
+.failure {
+    composes: success;
+    background-color: var(--color__failure);
+}
+
+.unknown {
+    composes: success;
+    background-color: var(--color__unknown);
+}
+
+.date {
+    font-size: .625rem;
+}
+
+.body {
+    margin-top: 1rem;
+}
+
+.line {
+    display: flex;
+    justify-content: space-between;
+}
+
+.line:not(:last-child) {
+    margin-bottom: .625rem;
+}
