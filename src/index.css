@@ -6,6 +6,8 @@
     --color__success: #58d777;
     --color__border: #2e2e54;
     --color__unknown: #a5a4a4;
+    --color__text: #F4F4F5;
+    --color__text-blue: #181b37;
 }
 
 body {

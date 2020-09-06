@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState, useCallback } from 'react';
 import { gql } from '@apollo/client';
 import { shape, string } from 'prop-types';
 import { Section } from '../section';
@@ -27,44 +27,62 @@ const GET_LAUNCH_NEXT = gql`
 `;
 
 export const LaunchNext = () => {
-
-    const { runQuery, isLoading, data } = useLaunch({query: GET_LAUNCH_NEXT, launchType: 'launchNext'});
+    const [offset, setOffset] = useState(0);
+    const {
+        runQuery,
+        isLoading,
+        data,
+        rocketName,
+        launchSuccess,
+        missionName,
+        launchDate,
+        rocketType,
+        launchSite,
+        recoveryShip
+    } = useLaunch({query: GET_LAUNCH_NEXT, launchType: 'launchNext'});
 
     useEffect(() => {
         runQuery({
-            variables: { offset: 0 }
+            variables: { offset: offset}
         });
-    }, [runQuery]);
+    }, [runQuery, offset]);
 
-    const statusClass = data?.launch_success?classes.success:data?.launch_success === null?classes.unknown:classes.failure;
+    const nextLaunchHandler = useCallback(() => {
+        runQuery({ variables: { offset: offset + 1} });
+        setOffset(offset + 1);
+    },[runQuery, offset]);
+
+    const statusClass = launchSuccess?classes.success:launchSuccess === null?classes.unknown:classes.failure;
 
     return (
         <div className={classes.root}>
             <Section title="Next Launch">
-                {(isLoading || !data)?(
+                {(isLoading)?(
                     'loading'
+                ):(data === null)?(
+                    <div>No more launches</div>
                 ):(
                     <Fragment>
                         <div className={classes.heading}>
                             <div className={classes.name}>
                                 <div className={statusClass}/>
-                                {data.mission_name}
+                                {missionName}
                             </div>
                             <div className={classes.date}>
-                                {data.launch_date_local}
+                                {launchDate}
                             </div>
                         </div>
                         <div className={classes.body}>
-                            <div className={classes.line}><b>Name:</b> {data.rocket.rocket_name}</div>
-                            <div className={classes.line}><b>Type:</b> {data.rocket.rocket_type}</div>
-                            <div className={classes.line}><b>Launch site:</b> {data.launch_site.site_name}</div>
-                            <div className={classes.line}><b>Recovery ship:</b> {data.rocket.fairings.ship}</div>
+                            <div className={classes.line}><b>Name:</b> {rocketName}</div>
+                            <div className={classes.line}><b>Type:</b> {rocketType}</div>
+                            <div className={classes.line}><b>Launch site:</b> {launchSite}</div>
+                            <div className={classes.line}><b>Recovery ship:</b> {recoveryShip}</div>
+                        </div>
+                        <div className={classes.footer}>
+                            <button onClick={nextLaunchHandler} className={classes.button}>View Next launch</button>
                         </div>
                     </Fragment>
                 )}
-                        <div className={classes.footer}>
-                            <button onClick={() => runQuery({ variables: { offset: 1 } })}>View Next launch</button>
-                        </div>
             </Section>
         </div>
     )

@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { gql } from '@apollo/client';
+import { Link } from "react-router-dom";
 import { shape, string } from 'prop-types';
 import { Section } from '../section';
 import { useLaunch } from '../../hooks';
@@ -28,35 +29,47 @@ const GET_LAUNCH_LATEST = gql`
 
 export const LaunchLatest = () => {
 
-    const { runQuery, isLoading, data } = useLaunch({query: GET_LAUNCH_LATEST, launchType: 'launchLatest'});
+    const {
+        runQuery,
+        isLoading,
+        rocketName,
+        launchSuccess,
+        missionName,
+        launchDate,
+        rocketType,
+        launchSite,
+        recoveryShip
+    } = useLaunch({query: GET_LAUNCH_LATEST, launchType: 'launchLatest'});
 
     useEffect(() => {
         runQuery()
     }, [runQuery]);
 
-    const statusClass = data?.launch_success?classes.success:classes.failure;
+    const statusClass = launchSuccess?classes.success:classes.failure;
 
     return (
         <div className={classes.root}>
             <Section title="Latest Launch">
-                {(isLoading || !data)?(
+                {(isLoading)?(
                     'loading'
                 ):(
                     <Fragment>
                         <div className={classes.heading}>
                             <div className={classes.name}>
                                 <div className={statusClass}/>
-                                {data.mission_name}
+                                {missionName}
                             </div>
                             <div className={classes.date}>
-                                {data.launch_date_local}
+                                {launchDate}
                             </div>
                         </div>
                         <div className={classes.body}>
-                            <div className={classes.line}><b>Name:</b> {data.rocket.rocket_name}</div>
-                            <div className={classes.line}><b>Type:</b> {data.rocket.rocket_type}</div>
-                            <div className={classes.line}><b>Launch site:</b> {data.launch_site.site_name}</div>
-                            <div className={classes.line}><b>Recovery ship:</b> {data.rocket.fairings.ship}</div>
+                            <div className={classes.line}><b>Name:</b> {rocketName}</div>
+                            <div className={classes.line}><b>Type:</b> {rocketType}</div>
+                            <div className={classes.line}><b>Launch site:</b> {launchSite}</div>
+                            <div className={classes.line}><b>Recovery ship:</b> {recoveryShip &&
+                                <Link to={`/ship/${recoveryShip}`}>{recoveryShip}</Link>}
+                            </div>
                         </div>
                     </Fragment>
                 )}

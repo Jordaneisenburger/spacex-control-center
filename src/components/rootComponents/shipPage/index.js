@@ -1,0 +1,1 @@
+export { ShipPage } from './shipPage'

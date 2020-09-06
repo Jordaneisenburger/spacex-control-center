@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import { shape, string } from 'prop-types';
 import { Header } from '../header';
-import { Dashboard } from '../rootComponents';
+import { Dashboard, ShipPage } from '../rootComponents';
 import classes from './app.module.css';
 
 export const App = () => {
@@ -17,15 +17,12 @@ export const App = () => {
                 <aside className={classes.aside}>aside</aside>
                 <main className={classes.main}>
                     <Switch>
+                        <Route path={`/ship/:shipId`}>
+                            <ShipPage />
+                        </Route>
                         <Route exact path="/">
                             <Dashboard />
                         </Route>
-                        {/*<Route path="/about">*/}
-                        {/*    <About />*/}
-                        {/*</Route>*/}
-                        {/*<Route path="/dashboard">*/}
-                        {/*    <Dashboard />*/}
-                        {/*</Route>*/}
                     </Switch>
                 </main>
             </div>
