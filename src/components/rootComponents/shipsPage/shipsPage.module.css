@@ -1,0 +1,26 @@
+.root {
+
+}
+
+.name {
+    color: var(--color__text-blue);;
+    font-size: 20px;
+    background-color: #fff;
+    border-radius: .25rem;
+    padding: .5rem 1rem;
+}
+
+.body {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem
+}
+
+.img {
+    max-width: 100%;
+}
+
+
+.filters {
+    margin-bottom: 1rem;
+}

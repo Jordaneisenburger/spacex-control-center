@@ -1,14 +1,15 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
+import { Link } from "react-router-dom";
 import { ReactComponent as LogoFile } from './logo.svg';
 import classes from './logo.module.css';
 
 export const Logo = () => {
 
     return (
-        <div className={classes.root}>
+        <Link className={classes.root} to="/">
             <LogoFile />
-        </div>
+        </Link>
     )
 };
 

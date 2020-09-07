@@ -1,0 +1,31 @@
+.root {
+
+}
+
+.heading {
+    height: 20rem;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .25rem;
+}
+
+.name {
+    color: var(--color__text-blue);;
+    font-size: 20px;
+    background-color: #fff;
+    border-radius: .25rem;
+    padding: .5rem 1rem;
+}
+
+.body {
+    color: #fff;
+    padding: 1rem;
+}
+
+.label {
+    margin-top: .25rem;
+}
+

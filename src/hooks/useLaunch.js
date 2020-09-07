@@ -7,7 +7,7 @@ export const useLaunch = ({query, launchType}) => {
     });
 
     if(error) {
-        console.log(error)
+        console.error(error)
     }
 
     const launchTypeData = data?data[launchType]:null;
